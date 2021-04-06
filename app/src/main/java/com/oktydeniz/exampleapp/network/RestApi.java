@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface RestApi {
 
-    @GET("colorapi")
+    @GET("colorapi.html")
     Call<List<ColorsPojo>> getAllColors();
 }

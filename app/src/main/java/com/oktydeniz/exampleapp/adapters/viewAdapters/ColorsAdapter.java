@@ -66,7 +66,7 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ViewHolder
                         || result == TextToSpeech.LANG_NOT_SUPPORTED) {
                     Log.i(TAG, "This Language is not supported");
                 } else {
-                    speech.speak(str, TextToSpeech.QUEUE_FLUSH, null);
+                    speech.speak(str, TextToSpeech.QUEUE_FLUSH, null, "");
                 }
             } else {
                 speech = null;
@@ -76,5 +76,10 @@ public class ColorsAdapter extends RecyclerView.Adapter<ColorsAdapter.ViewHolder
         });
     }
 
-
+    public void onDestroy() {
+        if (speech != null) {
+            speech.shutdown();
+            speech.stop();
+        }
+    }
 }

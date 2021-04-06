@@ -21,7 +21,7 @@ import retrofit2.Response;
 
 public class ColorActivity extends AppCompatActivity {
     private ActivityColorBinding binding;
-    private ColorsAdapter adapter ;
+    private ColorsAdapter adapter;
     private static final String TAG = "ColorActivity";
     List<ColorsPojo> colorsPojo = new ArrayList<>();
 
@@ -31,6 +31,7 @@ public class ColorActivity extends AppCompatActivity {
         binding = ActivityColorBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         init();
+
     }
 
     private void init() {
@@ -44,14 +45,19 @@ public class ColorActivity extends AppCompatActivity {
                     colorsPojo = response.body();
                     adapter = new ColorsAdapter(colorsPojo);
                     binding.colorRecyclerView.setAdapter(adapter);
-
                 }
             }
 
             @Override
             public void onFailure(@NonNull Call<List<ColorsPojo>> call, @NonNull Throwable t) {
-                System.out.println("failed  : " + t.getLocalizedMessage());
+                Log.i(TAG, "failed  : " + t.getLocalizedMessage());
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        adapter.onDestroy();
     }
 }
